@@ -41,6 +41,14 @@ app.post('/', (req, res) => {
     };
 
     const request = https.request(url, options, (response) => {
+        // check if request was successful and render success or failure page
+        if (response.statusCode === 200) {
+            res.sendFile(__dirname + '/success.html');
+        } else {
+            res.sendFile(__dirname + '/failure.html');
+        }
+
+        // log response
         response.on('data', (data) => {
             console.log(JSON.parse(data));
         });
@@ -49,7 +57,16 @@ app.post('/', (req, res) => {
     // send request
     request.write(jsonData);
     request.end();
+});
 
+// success route redirect
+app.post('/success', (req, res) => {
+    res.redirect('/');
+});
+
+// failure route
+app.post('/failure', (req, res) => {
+    res.redirect('/');
 });
 
 // listen on port 3000
