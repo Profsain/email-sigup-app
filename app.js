@@ -1,7 +1,7 @@
 const express = require('express'); // import express
 const bodyParser = require('body-parser'); // import body-parser
-const request = require('request'); // import request
 const https = require('https'); // import https
+const port = process.env.PORT || 3000;
 
 const app = express(); // initialize express
 app.use(bodyParser.urlencoded({ extended: true })); // use body-parser middleware
@@ -70,4 +70,5 @@ app.post('/failure', (req, res) => {
 });
 
 // listen on port 3000
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(port, () => console.log('Server running on port 3000'));
+
